@@ -34,7 +34,7 @@
 
 
 
-        <div style="background-image: url('/img/bg.svg'); background-repeat: no-repeat;" >
+        <div style="background-image: url('./img/bg.svg'); background-repeat: no-repeat;" >
             <div id="title" >
                 <p  id="slide-in-blurred-top"><b>AK TRANS</b></p>
                 <h3 class="focus-in-contract-bck">
@@ -568,12 +568,12 @@
 
            
             x.style.display = "block";
-
-            // setTimeout(() => {
-            //     x.style.display = "none";
-            // }, 1000)
-
             run();
+             setTimeout(() => {
+                 x.style.display = "none";
+             }, 1000)
+
+            // run();
             // x.style.display ="none";
                 
             } else {
