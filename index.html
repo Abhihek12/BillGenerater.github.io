@@ -617,11 +617,11 @@
             var i = table.rows[9].cells[5].innerText;
             var j = table.rows[10].cells[5].innerText;
 
-            var total = +a + +b + +c + +d + +e + +f + +g + +h + +i + +j + +Khoti + +Extra;
+            var total = +a + +b + +c + +d + +e + +f + +g + +h + +i + +j ;
             document.getElementById("sum").innerHTML = total;
             console.log(total);
 
-            var balance = total - Advance;
+            var balance = total - Advance+ +Khoti + +Extra;
 
 
             document.getElementById("balancex").innerHTML = balance;
