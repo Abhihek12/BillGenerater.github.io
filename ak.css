@@ -1,20 +1,20 @@
 
 
-@media print {
-    body *:not(#generatebill):not(#generatebill *) {
-        display: none !important;
-    }
+@media print{
 
-    #generatebill {
-        position: fixed;
-        width: 210mm; /* A4 width */
-        height: 297mm; /* A4 height */
-        top: 0;
-        left: 0;
-        z-index: 9999; /* Ensure it's on top of everything */
-        /* Additional styles as needed */
-    }
+body *:not(#generatebill):not(#generatebill *){
+
+    visibility: hidden;
 }
+
+#generatebill{
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+}   
 
 
 
