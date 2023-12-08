@@ -186,7 +186,7 @@
                 y.style.display = "block"
             }
         }
-
+ var totalRowCount = 0;
         function myFunction1() {
 
 
@@ -203,7 +203,7 @@
 
 
 
-            var totalRowCount = 0;
+           
             var rowCount = 0;
             var table = document.getElementById("myTable");
             var rows = table.getElementsByTagName("tr");
@@ -355,16 +355,16 @@
 
 
 
-            var totalRowCount = 0;
+            var totalRowCount1 =   totalRowCount ;
             var rowCount = 0;
             var table = document.getElementById("myTable");
             var rows = table.getElementsByTagName("tr");
             for (var i = 0; i < rows.length; i++) {
-                totalRowCount++;
+                totalRowCount1++;
             }
 
 
-            var message = "Total Row Count: " + totalRowCount;
+            var message = "Total Row Count: " + totalRowCount1;
             console.log(message);
 
 
@@ -372,7 +372,7 @@
 
 
 
-            switch (totalRowCount) {
+            switch (totalRowCount1) {
                 // first row
                 case 7:
                     for (i = 2; i < 11; i++) {
