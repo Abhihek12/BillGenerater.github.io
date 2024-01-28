@@ -132,26 +132,28 @@
                 </div>
         </section>
     </div>
-    <div id="pwd2" >
-        <div>
-            
-            <div id="submitbtn">
-                <div id="btn"> <button type="button" class="btn btn-primary" id="buttonxx"
-                        onclick="myFunction1()"><b>Submit</b></button>
-                </div>
+  <div id="pwd2">
+    <div>
+        <div id="submitbtn">
+            <div id="btn">
+                <button type="button" class="btn btn-primary" id="buttonxx" onclick="myFunction1()">
+                    <b>Submit</b>
+                </button>
+            </div>
 
+            <div id="btn">
+                <button type="button" class="btn btn-warning" id="beforePrintButton" onclick="showPdf()">
+                    <b>Before Print</b>
+                </button>
+            </div>
 
-            
-
-
-
-                <div id="btn"> <button type="button" class="btn btn-danger" id="btn2" onclick="print1()">print</button>
-              <div id="btn"> <button type="button" class="btn btn-danger" id="btn2" onclick="showPdf()">Before Print </button>
-
-                </div>
+            <div id="btn">
+                <button type="button" class="btn btn-danger" id="btn2" onclick="print1()">print</button>
             </div>
         </div>
-        
+    </div>
+</div>
+
 
     </div>
     
@@ -764,7 +766,13 @@
 
        function showPdf(){
     var generateBillElement = document.getElementById("generatebill");
-             generateBillElement.style.display = "block";
+             if (generateBillElement.style.display === "none") {
+        // If hidden, make it visible
+        generateBillElement.style.display = "block";
+    } else {
+        // If visible, hide it
+        generateBillElement.style.display = "none";
+    }
        }
     </script>
     </div>
