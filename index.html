@@ -297,6 +297,28 @@
     </div><!-- end .bill-page -->
 </div><!-- end #generatebill -->
 
+<!-- ═══════════ EXIT WARNING MODAL ═══════════ -->
+<div id="exitModal" class="exit-modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+    <div class="exit-modal-box">
+        <div class="exit-modal-icon">
+            <i class="fa fa-triangle-exclamation"></i>
+        </div>
+        <h5 class="exit-modal-title">Leave this page?</h5>
+        <p class="exit-modal-msg">
+            You have <b id="exitEntryCount">0</b> unsaved bill
+            entr<span id="exitEntryPlural">ies</span>.<br>
+            If you leave now, all your data will be <b>lost</b>.
+        </p>
+        <div class="exit-modal-btns">
+            <button class="btn btn-success exit-stay-btn" onclick="stayOnPage()">
+                <i class="fa fa-arrow-left"></i> Stay on Page
+            </button>
+            <button class="btn btn-outline-danger exit-leave-btn" onclick="leavePage()">
+                Leave
+            </button>
+        </div>
+    </div>
+</div>
 
 <script>
 // ─── Constants & state ───────────────────────────────────────────────────────
@@ -304,6 +326,47 @@ var MAX_ENTRIES  = 10;
 var entryCount   = 0;
 var lastEntry    = null;
 var billEntries  = [];   // source of truth for all added entries
+
+// ─── Guard: warn before leaving with unsaved data ────────────────────────────
+// 1) Tab close / refresh / external navigation (desktop + Android Chrome)
+function beforeUnloadHandler(e) {
+    if (billEntries.length > 0) {
+        e.preventDefault();
+        e.returnValue = '';   // required for Chrome to show the native dialog
+        return '';
+    }
+}
+window.addEventListener('beforeunload', beforeUnloadHandler);
+
+// 2) Push a history state so the back button can be intercepted on mobile
+history.pushState(null, '', location.href);
+window.addEventListener('popstate', function() {
+    if (billEntries.length > 0) {
+        // Re-push so the page stays in history; show our custom warning
+        history.pushState(null, '', location.href);
+        showExitModal();
+    } else {
+        // No data — allow normal back navigation
+        history.back();
+    }
+});
+
+function showExitModal() {
+    var n = billEntries.length;
+    document.getElementById('exitEntryCount').textContent  = n;
+    document.getElementById('exitEntryPlural').textContent = n === 1 ? 'y' : 'ies';
+    document.getElementById('exitModal').style.display     = 'flex';
+}
+function stayOnPage() {
+    document.getElementById('exitModal').style.display = 'none';
+}
+function leavePage() {
+    // Clear data so beforeUnloadHandler stays silent, then go back
+    billEntries = [];
+    entryCount  = 0;
+    document.getElementById('exitModal').style.display = 'none';
+    history.back();
+}
 
 // ─── Date setup ──────────────────────────────────────────────────────────────
 var today    = new Date();
