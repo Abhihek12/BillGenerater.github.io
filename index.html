@@ -1,889 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <script type="text/JavaScript" src="https://MomentJS.com/downloads/moment.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="ak.css">
-    <!-- CSS only -->
+    <title>AK TRANS - Bill Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- JavaScript Bundle with Popper -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="ak.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    </title>
-
-
-
-
 </head>
-<script>
-    var date = moment();
+<body>
 
-    var currentDate = date.format('DD/MM/YYYY');
-    console.log(currentDate);
-</script>
+<!-- ═══════════════════════════════════════════════════════ FORM SECTION -->
+<div id="formSection">
 
-<body >
-    <div id="pwd">
-
-
-
-
-
-
-        <div style="background-image: url('./img/bg.svg'); background-repeat: no-repeat;" >
-            <div id="title" >
-                <p  id="slide-in-blurred-top"><b>AK TRANS</b></p>
-                <h3 class="focus-in-contract-bck">
-                    <b>BILL GENERATER</b></h1>
-            </div>
-        </header>
-        <section>
-            <div id="main">
-                <div id="inputtop">
-                    <form id="fr" action="Bill.html" method="POST">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Transporter Name</label>
-                            <input type="text" class="form-control" aria-describedby="emailHelp" id="tpname"
-                                placeholder="" oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Bill No</label>
-                            <input class="form-control" id="bill" oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3 ">
-                            <label class="form-label">Date</label>
-                            <label class="form-label" id="datee"></label>
-                            <script>
-                                document.getElementById("datee").innerHTML = currentDate;
-                            </script>
-                        </div>
-                    </form>
-                </div>
-                <div id="inputbottom">
-                    <form action="#" id="fr">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Date of Vehical Load</label>
-                            <input type="date" class="form-control" id="date2" placeholder=""
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Truck</label>
-                            <select class="form-select" aria-label="Default select example" id="truck1">
-                                <option selected>Select Vehical</option>
-                                <option value="MH46HY8278">MH46HY8278</option>
-                                <option value="MH46BB6862">MH46BB6862</option>
-                                <option value="MH46BB6850">MH46BB6850</option>
-                                <option value="MH46BF3775">MH46BF3775</option>
-                                <option value="MH46BF3776">MH46BF3776</option>
-                                <option value="MH46AF5762">MH46AF5762 </option>
-                                <option value="MH04HY8279">MH04HY8279 </option>
-                                <option value="MH46BF2492">MH46BF2492 </option>
-                                <option value="MH46BF4349">MH46BF4349 </option>
-                                <option value="MH46BF4369">MH46BF4369 </option>
-                                <option value="MH46CU3615">MH46CU3615 </option>
-                                <option value="MH46CU3616">MH46CU3616 </option>
-                            </select>
-                        </div>
-                        <div class="mb-3 ">
-                            <label class="form-label">Particulars</label>
-                            <input type="text" class="form-control" id="particulars1"
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3 ">
-                            <label class="form-label">Rate</label>
-                            <input type="text" class="form-control" id="rate1"
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3 ">
-                            <label class="form-label">Weight</label>
-                            <input type="text" class="form-control" id="weight1"
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3 ">
-                            <label class="form-label">Amount</label>
-                            <input type="text" class="form-control" id="amount1"
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                    </form>
-                </div>
-                <div id="showbtn">
-                    <button class="btn btn-success" onclick="hide()">show</button>
-                </div>
-                <div id="extra" style="display:none ;">
-                    <form action="#" id="fr">
-                        <div class="mb-3 ">
-                            <label class="form-label">Advance</label>
-                            <input type="text" class="form-control" id="advance"
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3 ">
-                            <label class="form-label">Khoti</label>
-                            <input type="text" class="form-control" id="khoti"
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                        <div class="mb-3 ">
-                            <label class="form-label" >ORAI</label>
-                            <input type="text" class="form-control" id="extrax"
-                                oninput="this.value = this.value.toUpperCase()">
-                        </div>
-                    </form>
-                </div>
-        </section>
+    <!-- App Header -->
+    <div class="app-header">
+        <p id="slide-in-blurred-top"><b>AK TRANS</b></p>
+        <h3 class="focus-in-contract-bck"><b>BILL GENERATOR</b></h3>
     </div>
-  <div id="pwd2">
-    <div>
-        <div id="submitbtn">
-            <div id="btn">
-                <button type="button" class="btn btn-primary" id="buttonxx" onclick="myFunction1()">
-                    <b>Submit</b>
-                </button>
-            </div>
 
-            <div id="btn">
-                <button type="button" class="btn btn-warning" id="beforePrintButton" onclick="showPdf()">
-                    <b>Before Print</b>
-                </button>
+    <!-- Card 1: Bill Information -->
+    <div class="form-card">
+        <div class="form-card-title">
+            <i class="fa fa-file-invoice"></i> Bill Information
+            <span class="lock-indicator" id="lockIndicator" style="display:none;">
+                <i class="fa fa-lock"></i> Locked
+            </span>
+        </div>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <label class="form-label">Transporter Name</label>
+                <input type="text" class="form-control" id="tpname"
+                    placeholder="Enter transporter name"
+                    oninput="this.value = this.value.toUpperCase(); liveSync()">
             </div>
-
-            <div id="btn">
-                <button type="button" class="btn btn-danger" id="btn2" onclick="print1()">print</button>
+            <div class="col-12 col-sm-6">
+                <label class="form-label">
+                    Bill No
+                    <span class="auto-label">auto-generated, editable</span>
+                </label>
+                <input type="text" class="form-control" id="bill"
+                    placeholder="Bill number"
+                    oninput="this.value = this.value.toUpperCase(); liveSync()">
+            </div>
+            <div class="col-12 col-sm-6">
+                <label class="form-label">Bill Date</label>
+                <input type="date" class="form-control" id="datee" onchange="liveSync()">
             </div>
         </div>
     </div>
-</div>
 
-
-    </div>
-    
-
-<div class="container" style="text-align: center;">
-    <div class=""> <strong>︵✰𝘼𝙗𝙝𝙞𝙨𝙝𝙚𝙠 𝙎𝙞𝙣𝙜𝙝࿐</strong></div>
-    <div> <img src="./img/bgdown1.jpg" class="img-fluid" alt="fotter image">  </div></div>
-
-
-
-   
-
-
-
-
-
-      
-    
-
-    <!-- toast dic -->
-    <div id="toastss"></i></div>
-    </div>
-    </div>
-    <script>
-        function hide() {
-            var x = document.getElementById("extra");
-            var y = document.getElementById("buttonxx")
-            if (x.style.display === "none") {
-
-                x.style.display = "block";
-                y.style.display = "none"
-            } else {
-                x.style.display = "none";
-                y.style.display = "block"
-            }
-        }
-
-        function myFunction1() {
-
-
-            var da = new Date(document.getElementById("date2").value);
-            dt = da.getDate();
-            mn = da.getMonth();
-            mn++;
-            yy = da.getFullYear();
-            var date2 = dt + "/" + mn + "/" + yy;
-
-
-
-
-
-
-
-            var totalRowCount = 0;
-            var rowCount = 0;
-            var table = document.getElementById("myTable");
-            var rows = table.getElementsByTagName("tr");
-            for (var i = 0; i < rows.length; i++) {
-                totalRowCount++;
-            }
-
-
-            var message = "Total Row Count: " + totalRowCount;
-            console.log(message);
-
-            var table = document.getElementById("myTable");
-            var row = table.insertRow(1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-            var cell5 = row.insertCell(4);
-            var cell6 = row.insertCell(5);
-
-
-
-
-
-            var f = document.getElementById("truck1").value;
-            var l = document.getElementById("particulars1").value;
-            var c = document.getElementById("rate1").value;
-            var c1 = document.getElementById("weight1").value;
-            var c2 = document.getElementById("amount1").value;
-
-
-
-
-
-
-            cell1.innerHTML = date2;
-            cell2.innerHTML = f;
-            cell3.innerHTML = l;
-            cell4.innerHTML = c;
-            cell5.innerHTML = c1;
-
-            if (cell4.innerText == "FIX") {
-                cell6.innerHTML = c2.toFixed(2)
-                console.log(cell4.innerText);
-
-            } else {
-
-                var total = c * c1;
-                cell6.innerHTML = total.toFixed(2);
-            }
-
-
-
-
-
-
-
-
-
-
-
-            document.getElementById("inputtop").style.display = "none";
-
-
-
-
-
-
-        }
-
-
-
-        const button = document.getElementById('buttonxx');
-        const toastss = document.getElementById('toastss');
-
-
-
-
-
-        var clicks = 0;
-        button.addEventListener('click', () => createNotification())
-
-        function createNotification(message = null, type = null) {
-            clicks += 1;
-            const messages = [
-                clicks,
-                ' Record inserted !!',
-
-            ]
-
-            const notif = document.createElement('div')
-            notif.classList.add('toasts')
-
-
-            notif.innerText = messages
-
-            toastss.appendChild(notif)
-
-            setTimeout(() => {
-                notif.remove()
-            }, 5000)
-        }
-
-
-
-
-
-
-
-
-
-
-
-        var btnClear = document.getElementById('buttonxx');
-        var btnClear1 = document.getElementById('btn2');
-        var inputs = document.querySelectorAll('input');
-
-        btnClear.addEventListener('click', () => {
-            inputs.forEach(input => input.value = '');
-
-
-
-        }
-
-
-
-        );
-
-        btnClear1.addEventListener('click', () => {
-            inputs.forEach(input => input.value = '');
-
-
-
-        }
-
-
-
-        );
-
-
-
-
-
-
-        function print1() {
-
-
-                     
-
-
-
-            var totalRowCount = 0;
-            var rowCount = 0;
-            var table = document.getElementById("myTable");
-            var rows = table.getElementsByTagName("tr");
-            for (var i = 0; i < rows.length; i++) {
-                totalRowCount++;
-            }
-
-
-            var message = "Total Row Count: " + totalRowCount;
-            console.log(message);
-
-
-
-
-
-
-            switch (totalRowCount) {
-                // first row
-                case 7:
-                    for (i = 2; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-                // second row
-                case 8:
-                    for (i = 3; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-                // third row
-                case 9:
-                    for (i = 4; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-                // fourth row
-                case 10:
-                    for (i = 5; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-
-                // fifth row
-                case 11:
-                    for (i = 6; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-
-                // sixth row
-                case 12:
-                    for (i = 7; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-                // seventh row
-
-                case 13:
-                    for (i = 8; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-
-                // eight row
-
-                case 14:
-                    for (i = 9; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-                // nine row
-
-                case 15:
-                    for (i = 10; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-                // 10th row row
-
-                case 16:
-                    for (i = 11; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-
-                // eleventh row
-
-                case 17:
-                    for (i = 12; i < 11; i++) {
-
-                        var table = document.getElementById("myTable");
-                        var row = table.insertRow(i);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                    }
-
-                    break;
-
-            }
-
-
-            document.getElementById("extra").style.display = "none";
-            document.getElementById("buttonxx").style.display = "block"
-
-
-
-            var x = document.getElementById("generatebill")
-
-            if (totalRowCount >= 7) {
-
-
-           
-            x.style.display = "block";
-            run();
-            setTimeout(() => {
-                 x.style.display = "none";
-             }, 10000)
-
-            
-            // x.style.display ="none";
-              //  run();
-                
-            } else {
-
-                x.style.display = "none";
-                
-            }
-
-            
-
-
-        }
-
-
-
-
-
-        function run() {
-
-
-            var Advance = document.getElementById("advance").value;
-            var Khoti = document.getElementById("khoti").value;
-            var Extra = document.getElementById("extrax").value;
-
-            document.getElementById("advancex").innerHTML = Advance;
-            document.getElementById("khotix").innerHTML = Khoti;
-            document.getElementById("extraxx").innerHTML = Extra;
-            document.getElementById("extraxx").innerHTML = Extra;
-
-            var table = document.getElementById("myTable");
-
-            var a = table.rows[1].cells[5].innerText;
-            var b = table.rows[2].cells[5].innerText;
-            var c = table.rows[3].cells[5].innerText;
-            var d = table.rows[4].cells[5].innerText;
-            var e = table.rows[5].cells[5].innerText;
-            var f = table.rows[6].cells[5].innerText;
-            var g = table.rows[7].cells[5].innerText;
-            var h = table.rows[8].cells[5].innerText;
-            var i = table.rows[9].cells[5].innerText;
-            var j = table.rows[10].cells[5].innerText;
-
-            var total = +a + +b + +c + +d + +e + +f + +g + +h + +i + +j ;
-            document.getElementById("sum").innerHTML = total;
-            console.log(total);
-
-            var balance = total - Advance+ +Khoti + +Extra;
-
-
-            document.getElementById("balancex").innerHTML = balance;
-
-
-
-
-            function NumToWord(inputNumber, outputControl) {
-                var str = new String(inputNumber)
-                var splt = str.split("");
-                var rev = splt.reverse();
-                var once = ['Zero', ' One', ' Two', ' Three', ' Four', ' Five', ' Six', ' Seven', ' Eight', ' Nine'];
-                var twos = ['Ten', ' Eleven', ' Twelve', ' Thirteen', ' Fourteen', ' Fifteen', ' Sixteen', ' Seventeen',
-                    ' Eighteen', ' Nineteen'
-                ];
-                var tens = ['', 'Ten', ' Twenty', ' Thirty', ' Forty', ' Fifty', ' Sixty', ' Seventy', ' Eighty',
-                    ' Ninety'
-                ];
-
-                numLength = rev.length;
-                var word = new Array();
-                var j = 0;
-
-                for (i = 0; i < numLength; i++) {
-                    switch (i) {
-
-                        case 0:
-                            if ((rev[i] == 0) || (rev[i + 1] == 1)) {
-                                word[j] = '';
-                            } else {
-                                word[j] = '' + once[rev[i]];
-                            }
-                            word[j] = word[j];
-                            break;
-
-                        case 1:
-                            aboveTens();
-                            break;
-
-                        case 2:
-                            if (rev[i] == 0) {
-                                word[j] = '';
-                            } else if ((rev[i - 1] == 0) || (rev[i - 2] == 0)) {
-                                word[j] = once[rev[i]] + " Hundred ";
-                            } else {
-                                word[j] = once[rev[i]] + " Hundred and";
-                            }
-                            break;
-
-                        case 3:
-                            if (rev[i] == 0 || rev[i + 1] == 1) {
-                                word[j] = '';
-                            } else {
-                                word[j] = once[rev[i]];
-                            }
-                            if ((rev[i + 1] != 0) || (rev[i] > 0)) {
-                                word[j] = word[j] + " Thousand";
-                            }
-                            break;
-
-
-                        case 4:
-                            aboveTens();
-                            break;
-
-                        case 5:
-                            if ((rev[i] == 0) || (rev[i + 1] == 1)) {
-                                word[j] = '';
-                            } else {
-                                word[j] = once[rev[i]];
-                            }
-                            if (rev[i + 1] !== '0' || rev[i] > '0') {
-                                word[j] = word[j] + " Lakh";
-                            }
-
-                            break;
-
-                        case 6:
-                            aboveTens();
-                            break;
-
-                        case 7:
-                            if ((rev[i] == 0) || (rev[i + 1] == 1)) {
-                                word[j] = '';
-                            } else {
-                                word[j] = once[rev[i]];
-                            }
-                            if (rev[i + 1] !== '0' || rev[i] > '0') {
-                                word[j] = word[j] + " Crore";
-                            }
-                            break;
-
-                        case 8:
-                            aboveTens();
-                            break;
-
-
-
-                        default:
-                            break;
-                    }
-                    j++;
-                }
-
-                function aboveTens() {
-                    if (rev[i] == 0) {
-                        word[j] = '';
-                    } else if (rev[i] == 1) {
-                        word[j] = twos[rev[i - 1]];
-                    } else {
-                        word[j] = tens[rev[i]];
-                    }
-                }
-
-                word.reverse();
-                var finalOutput = '';
-                for (i = 0; i < numLength; i++) {
-                    finalOutput = finalOutput + word[i];
-                }
-                document.getElementById(outputControl).innerHTML = finalOutput;
-
-
-
-            }
-
-
-
-            NumToWord(Math.round(balance), 'rupeex');
-            window.print();
-          
-
-
-
-
-        }
-
-       function showPdf(){
-    var generateBillElement = document.getElementById("generatebill");
-             if (generateBillElement.style.display === "none") {
-        // If hidden, make it visible
-        generateBillElement.style.display = "block";
-    } else {
-        // If visible, hide it
-        generateBillElement.style.display = "none";
-    }
-       }
-    </script>
-    </div>
-    <div  class="container-fluid" id="generatebill" style="display: none;">
-        <div class="container-fluid">
-            <div id="contact">Mob : 9082024378<br>: 9819162856</div>
-            <div id="hindi">श्री राम, जय राम, जय जय राम </div>
-            <div id="logo">
-                <div id="aklogo"> <img src="./img/aklogo.png" alt="AK TRANS"></div>
-                <div id="ak">AK TRANS</div>
+    <!-- Card 2: Add Entry -->
+    <div class="form-card">
+        <div class="form-card-title">
+            <i class="fa fa-truck"></i> Add Entry
+            <span class="entry-full-badge" id="entryFullBadge" style="display:none;">FULL 10/10</span>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <label class="form-label">Date of Vehicle Load</label>
+                <input type="date" class="form-control" id="date2">
             </div>
-            <div id="owner">FLEET OWNERS & TRANSPORT CONTRACTOR</div>
-            <div id="address">
-                <div id="bordertop"></div>
-                A-265, Disma Complex, Steel Market, Kalamboli, Navi Mumbai - 410 218
-                <div id="borderbottom"></div>
+            <div class="col-12 col-sm-6">
+                <label class="form-label">Truck Number</label>
+                <select class="form-select mb-2" id="truckSelect" onchange="syncTruckInput()">
+                    <option value="">-- Select Saved Vehicle --</option>
+                    <option value="MH46HY8278">MH46HY8278</option>
+                    <option value="MH46BB6862">MH46BB6862</option>
+                    <option value="MH46BB6850">MH46BB6850</option>
+                    <option value="MH46BF3775">MH46BF3775</option>
+                    <option value="MH46BF3776">MH46BF3776</option>
+                    <option value="MH46AF5762">MH46AF5762</option>
+                    <option value="MH04HY8279">MH04HY8279</option>
+                    <option value="MH46BF2492">MH46BF2492</option>
+                    <option value="MH46BF4349">MH46BF4349</option>
+                    <option value="MH46BF4369">MH46BF4369</option>
+                    <option value="MH46CU3615">MH46CU3615</option>
+                    <option value="MH46CU3616">MH46CU3616</option>
+                </select>
+                <input type="text" class="form-control" id="truckInput"
+                    placeholder="Or type truck number here"
+                    oninput="this.value = this.value.toUpperCase()">
+                <small class="text-muted">Select from list OR type a custom number above</small>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Particulars</label>
+                <input type="text" class="form-control" id="particulars1"
+                    placeholder="e.g. KALAMBOLI TO PUNE"
+                    oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div class="col-6 col-sm-4">
+                <label class="form-label">Rate</label>
+                <input type="number" class="form-control" id="rate1" placeholder="0.00" min="0" step="0.01">
+            </div>
+            <div class="col-6 col-sm-4">
+                <label class="form-label">Weight</label>
+                <input type="number" class="form-control" id="weight1" placeholder="0.00" min="0" step="0.01">
+            </div>
+            <div class="col-12 col-sm-4">
+                <label class="form-label">Amount <small class="text-muted">(blank = Rate×Weight)</small></label>
+                <input type="number" class="form-control" id="amount1" placeholder="Auto" min="0" step="0.01">
             </div>
         </div>
-        <div id="container-fluid">
-            <div class="d-flex">
-                <div class=" p-2 w-100 flex-shrink-1" id="partyname">
-                    <b>TO </b>
-                    <p id="borderbottom1"><b id="tp"></b></p>
-                </div>
-                <div class="  p-2 w-50" id="partyname">
-                    <p id="borderbottom"><b>Bill No : &nbsp;<span id="bo"></span></b></p>
-                    <p id="borderbottom"><b>Date : &nbsp;<span id="da"> </span></b></p>
-                    <script>
-                        document.getElementById("da").innerHTML = currentDate;
-                    </script>
-                </div>
-            </div>
+        <div class="mt-3 entry-btn-row">
+            <button class="btn btn-success btn-add-entry" id="addEntryBtn" onclick="addEntry()">
+                <i class="fa fa-plus-circle"></i> Add Entry
+            </button>
+            <button class="btn btn-outline-primary btn-repeat-entry" id="repeatBtn"
+                style="display:none;" onclick="repeatLastEntry()"
+                title="Pre-fill form with last entry's vehicle, particulars & rate">
+                <i class="fa fa-clone"></i> Repeat Last
+            </button>
         </div>
-        <div id="container-fluid">
-            <table class="tbl" id="myTable">
+    </div>
+
+    <!-- Card: Entries List (shown after first entry is added) -->
+    <div class="form-card" id="entriesCard" style="display:none;">
+        <div class="form-card-title">
+            <i class="fa fa-list-check"></i>
+            <span id="entriesCardTitle">ENTRIES (0)</span>
+            <span class="entries-count-badge" id="entriesCountBadge">0/10</span>
+        </div>
+        <div class="table-responsive">
+            <table class="entries-list-table">
                 <thead>
-                    <th id="date">DATE</th>
-                    <th id="truck">TRUCK</th>
-                    <th id="particulars">PARTICULARS</th>
-                    <th id="rate">RATE</th>
-                    <th id="weight">WEIGHT</th>
-                    <th id="amount">AMOUNT</th>
+                    <tr>
+                        <th>Date</th>
+                        <th>Truck</th>
+                        <th>Particulars</th>
+                        <th>Rate</th>
+                        <th>Wt</th>
+                        <th>Amt</th>
+                        <th></th>
+                    </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td id="tdbr"><B>ORAI</B></td>
-                        <td id="tdbr"><span id="extraxx"></span></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td id="tdbr"><B>KHOTI</B></td>
-                        <td id="tdbr"><span id="khotix"></span></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><b style="color: red;">PAN NO : BKKPS8139R</b></td>
-                        <td></td>
-                        <td id="total"><B>TOTAL</B></td>
-                        <td id="tdbr"><span id="sum"></span></td>
-                    <tr>
-                        <td colspan="4" id="rupee"><B>RUPEES :</B> <span id="rupeex"></span></td>
-                        <td id="tdbr"><B>ADVANCE</B></td>
-                        <td id="tdbr"><span id="advancex"></span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" id="tdbr"></td>
-                        <td id="tdbr"><B>BALANCE </B></td>
-                        <td id="tdbr"><span id="balancex"></span></td>
-                    </tr>
-                </tbody>
+                <tbody id="entriesListBody"></tbody>
             </table>
         </div>
-        <div id="container-fluid">
-            <div class="d-flex">
-                <div class=" p-2 w-100 flex-shrink-1">
-                    <b>E. & O. E.</b> <br>
-                    <div id="cc">Interest at 18% Per Amount will be Charged on all accounts <br>
-                        unpaid for one month after Presentation <br>
-                        Please pay by cheque/cash
-                    </div>
-                </div>
-                <div class="  p-2 w-50" id="">
-                    <div id="footer1">FOR AK TRANS</div>
-                    <div id="footer"><img src="./img/signature.png" alt="Abhishek Singh"></div>
-                </div>
+    </div>
+
+    <!-- Card 3: Deductions & Extras -->
+    <div class="form-card">
+        <div class="form-card-title"><i class="fa fa-calculator"></i> Deductions &amp; Extras</div>
+        <div class="row g-3">
+            <div class="col-4">
+                <label class="form-label">Advance</label>
+                <input type="number" class="form-control" id="advance" placeholder="0" min="0" step="0.01">
+            </div>
+            <div class="col-4">
+                <label class="form-label">Khoti</label>
+                <input type="number" class="form-control" id="khoti" placeholder="0" min="0" step="0.01">
+            </div>
+            <div class="col-4">
+                <label class="form-label">ORAI</label>
+                <input type="number" class="form-control" id="extrax" placeholder="0" min="0" step="0.01">
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById("tpname").addEventListener("keyup", function () {
+
+    <!-- Action Buttons -->
+    <div class="action-bar">
+        <button type="button" class="btn btn-warning action-btn" onclick="showPreview()">
+            <i class="fa fa-eye"></i><span class="btn-label"> Preview</span>
+        </button>
+        <button type="button" class="btn btn-danger action-btn" onclick="printBill()">
+            <i class="fa fa-print"></i><span class="btn-label"> Print</span>
+        </button>
+        <button type="button" class="btn btn-outline-secondary action-btn" onclick="resetAll()">
+            <i class="fa fa-rotate-left"></i><span class="btn-label"> Reset</span>
+        </button>
+    </div>
+
+    <!-- Developer footer -->
+    <div class="dev-footer">
+        <strong>︵✰𝘼𝙗𝙝𝙞𝙨𝙝𝙚𝙠 𝙎𝙞𝙣𝙜𝙝࿐</strong>
+        <div><img src="./img/bgdown1.jpg" class="img-fluid footer-img" alt="footer image"></div>
+    </div>
+
+</div><!-- end #formSection -->
+
+<!-- Toast container -->
+<div id="toastss"></div>
+
+<!-- ═══════════════════════════════════════════════════════ BILL PREVIEW -->
+<div id="generatebill" style="display:none;">
+
+    <!-- Controls bar (hidden on print) -->
+    <div class="bill-controls d-print-none">
+        <button class="btn btn-sm btn-outline-secondary" onclick="closePreview()">
+            <i class="fa fa-arrow-left"></i> Back
+        </button>
+        <button class="btn btn-sm btn-primary" onclick="window.print()">
+            <i class="fa fa-print"></i> Print Bill
+        </button>
+    </div>
+
+    <!-- The printable bill page -->
+    <div class="bill-page" id="billPage">
+
+        <div id="contact">Mob : 9082024378 &nbsp;/&nbsp; 9819162856</div>
+        <div id="hindi">श्री राम, जय राम, जय जय राम</div>
+
+        <div id="logo">
+            <div id="aklogo"><img src="./img/aklogo.png" alt="AK TRANS"></div>
+            <div id="ak">AK TRANS</div>
+        </div>
+
+        <div id="owner">FLEET OWNERS &amp; TRANSPORT CONTRACTOR</div>
+
+        <div id="address">
+            <div class="addr-line-top"></div>
+            A-265, Disma Complex, Steel Market, Kalamboli, Navi Mumbai - 410 218
+            <div class="addr-line-bottom"></div>
+        </div>
+
+        <!-- Party & Bill Info -->
+        <div class="bill-info-row">
+            <div class="bill-to-cell">
+                <b>TO</b>
+                <div class="party-name-line"><b id="tp"></b></div>
+            </div>
+            <div class="bill-meta-cell">
+                <div class="meta-line"><b>Bill No :&nbsp;<span id="bo" style="color:red;"></span></b></div>
+                <div class="meta-line"><b>Date :&nbsp;<span id="da"></span></b></div>
+            </div>
+        </div>
+
+        <!-- Bill Table -->
+        <div class="table-scroll-wrap">
+            <table class="tbl" id="myTable">
+                <thead>
+                    <tr>
+                        <th class="col-date">DATE</th>
+                        <th class="col-truck">TRUCK</th>
+                        <th class="col-particulars">PARTICULARS</th>
+                        <th class="col-rate">RATE</th>
+                        <th class="col-weight">WEIGHT</th>
+                        <th class="col-amount">AMOUNT</th>
+                    </tr>
+                </thead>
+                <tbody id="billBody">
+                    <!-- Data rows appended here -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td><td></td><td></td><td></td>
+                        <td class="tdbr"><b>ORAI</b></td>
+                        <td class="tdbr"><span id="extraxx"></span></td>
+                    </tr>
+                    <tr>
+                        <td></td><td></td><td></td><td></td>
+                        <td class="tdbr"><b>KHOTI</b></td>
+                        <td class="tdbr"><span id="khotix"></span></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><b style="color:red;">PAN NO : BKKPS8139R</b></td>
+                        <td></td>
+                        <td class="tdbr"><b>TOTAL</b></td>
+                        <td class="tdbr"><span id="sum"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" id="rupee"><b>RUPEES :</b> <span id="rupeex"></span></td>
+                        <td class="tdbr"><b>ADVANCE</b></td>
+                        <td class="tdbr"><span id="advancex"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tdbr"></td>
+                        <td class="tdbr"><b>BALANCE</b></td>
+                        <td class="tdbr"><span id="balancex"></span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- Bill Footer -->
+        <div class="bill-footer">
+            <div class="bill-footer-left">
+                <b>E. &amp; O. E.</b>
+                <div id="cc">
+                    Interest at 18% Per Amount will be Charged on all accounts<br>
+                    unpaid for one month after Presentation<br>
+                    Please pay by cheque/cash
+                </div>
+            </div>
+            <div class="bill-footer-right">
+                <div id="footer1">FOR AK TRANS</div>
+                <div id="footer"><img src="./img/signature.png" alt="Signature"></div>
+            </div>
+        </div>
+
+    </div><!-- end .bill-page -->
+</div><!-- end #generatebill -->
 
 
-            document.getElementById("tp").innerHTML = this.value;
-        });
+<script>
+// ─── Constants & state ───────────────────────────────────────────────────────
+var MAX_ENTRIES  = 10;
+var entryCount   = 0;
+var lastEntry    = null;
+var billEntries  = [];   // source of truth for all added entries
 
+// ─── Date setup ──────────────────────────────────────────────────────────────
+var today    = new Date();
+var todayISO = today.getFullYear() + '-' +
+               String(today.getMonth() + 1).padStart(2, '0') + '-' +
+               String(today.getDate()).padStart(2, '0');
 
-        document.getElementById("bill").addEventListener("keyup", function () {
+document.getElementById('datee').value = todayISO;
 
-            document.getElementById("bo").innerHTML = this.value;
-        });
-    </script>
+function formatDateDisplay(iso) {
+    if (!iso) return '';
+    var p = iso.split('-');
+    return p[2] + '/' + p[1] + '/' + p[0];
+}
+
+// Set initial bill date in preview
+document.getElementById('da').textContent = formatDateDisplay(todayISO);
+
+// ─── Auto-generate bill number (daily sequence via localStorage) ─────────────
+function generateBillNo() {
+    var d    = new Date();
+    var dd   = String(d.getDate()).padStart(2, '0');
+    var mm   = String(d.getMonth() + 1).padStart(2, '0');
+    var yy   = String(d.getFullYear()).slice(-2);
+    var seq  = 1;
+    try {
+        var key = 'ak_seq_' + d.getFullYear() + mm + dd;
+        seq = parseInt(localStorage.getItem(key) || '0') + 1;
+        localStorage.setItem(key, seq);
+    } catch(e) {
+        seq = Math.floor(Math.random() * 900) + 100;
+    }
+    return 'AK/' + dd + mm + yy + '/' + String(seq).padStart(3, '0');
+}
+
+document.getElementById('bill').value = generateBillNo();
+document.getElementById('bo').textContent = document.getElementById('bill').value;
+
+// ─── Truck dropdown → text input sync ────────────────────────────────────────
+function syncTruckInput() {
+    var sel = document.getElementById('truckSelect').value;
+    if (sel) document.getElementById('truckInput').value = sel;
+}
+
+// ─── Live-sync bill header → preview ─────────────────────────────────────────
+function liveSync() {
+    document.getElementById('tp').textContent = document.getElementById('tpname').value;
+    document.getElementById('bo').textContent = document.getElementById('bill').value;
+    document.getElementById('da').textContent = formatDateDisplay(document.getElementById('datee').value);
+}
+
+// ─── Render entries list (form section table) ────────────────────────────────
+function renderEntriesList() {
+    var card  = document.getElementById('entriesCard');
+    var tbody = document.getElementById('entriesListBody');
+    var title = document.getElementById('entriesCardTitle');
+    var badge = document.getElementById('entriesCountBadge');
+
+    if (billEntries.length === 0) {
+        card.style.display = 'none';
+        return;
+    }
+    card.style.display = 'block';
+    title.textContent  = 'ENTRIES (' + billEntries.length + ')';
+    badge.textContent  = billEntries.length + '/' + MAX_ENTRIES;
+    badge.className    = 'entries-count-badge' +
+        (billEntries.length >= MAX_ENTRIES ? ' badge-full' : '');
+
+    tbody.innerHTML = '';
+    billEntries.forEach(function(entry, idx) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+            '<td>' + entry.date + '</td>' +
+            '<td>' + entry.truck + '</td>' +
+            '<td class="el-particulars">' + entry.particulars + '</td>' +
+            '<td>' + (entry.rate   || '-') + '</td>' +
+            '<td>' + (entry.weight || '-') + '</td>' +
+            '<td class="el-amount">&#8377;' + entry.amount.toFixed(2) + '</td>' +
+            '<td><button class="btn-delete-entry" onclick="deleteEntry(' + idx + ')" title="Remove this entry">&times;</button></td>';
+        tbody.appendChild(tr);
+    });
+}
+
+// ─── Rebuild bill body from billEntries array ─────────────────────────────────
+function rebuildBillBody() {
+    var tbody = document.getElementById('billBody');
+    tbody.innerHTML = '';
+    billEntries.forEach(function(entry) {
+        var tr = document.createElement('tr');
+        tr.className = 'data-row';
+        tr.innerHTML =
+            '<td>' + entry.date + '</td>' +
+            '<td>' + entry.truck + '</td>' +
+            '<td>' + entry.particulars + '</td>' +
+            '<td>' + (entry.rate   || '-') + '</td>' +
+            '<td>' + (entry.weight || '-') + '</td>' +
+            '<td class="amount-cell">' + entry.amount.toFixed(2) + '</td>';
+        tbody.appendChild(tr);
+    });
+}
+
+// ─── Delete an entry by index ─────────────────────────────────────────────────
+function deleteEntry(idx) {
+    billEntries.splice(idx, 1);
+    entryCount = billEntries.length;
+
+    rebuildBillBody();
+    renderEntriesList();
+
+    // Unlock header if all entries removed
+    if (entryCount === 0) {
+        unlockHeaderFields();
+        document.getElementById('repeatBtn').style.display = 'none';
+        lastEntry = null;
+    }
+
+    // Re-enable add button if back under limit
+    var addBtn = document.getElementById('addEntryBtn');
+    addBtn.disabled = false;
+    addBtn.classList.remove('btn-disabled');
+    document.getElementById('entryFullBadge').style.display = 'none';
+}
+
+// ─── Repeat last entry ────────────────────────────────────────────────────────
+function repeatLastEntry() {
+    if (!lastEntry) return;
+    document.getElementById('truckInput').value   = lastEntry.truck;
+    document.getElementById('truckSelect').value  = lastEntry.truckSelectVal || '';
+    document.getElementById('particulars1').value = lastEntry.particulars;
+    document.getElementById('rate1').value        = lastEntry.rate;
+    document.getElementById('weight1').value      = lastEntry.weight;
+    // amount left blank so Rate×Weight recalculates
+    document.getElementById('amount1').value      = '';
+    document.getElementById('date2').focus();
+    showToast('Last entry filled — change the date and tap Add Entry', 'info');
+}
+
+// ─── Lock / unlock bill header fields ────────────────────────────────────────
+function lockHeaderFields() {
+    document.getElementById('tpname').disabled = true;
+    document.getElementById('bill').disabled   = true;
+    document.getElementById('datee').disabled  = true;
+    document.getElementById('lockIndicator').style.display = 'inline-flex';
+}
+
+function unlockHeaderFields() {
+    document.getElementById('tpname').disabled = false;
+    document.getElementById('bill').disabled   = false;
+    document.getElementById('datee').disabled  = false;
+    document.getElementById('lockIndicator').style.display = 'none';
+}
+
+// ─── Add entry ────────────────────────────────────────────────────────────────
+function addEntry() {
+    if (entryCount >= MAX_ENTRIES) {
+        showToast('Maximum 10 entries per bill. Use Reset to start a new bill.', 'error');
+        return;
+    }
+
+    var dateVal     = document.getElementById('date2').value;
+    var truckVal    = document.getElementById('truckInput').value.trim() ||
+                      document.getElementById('truckSelect').value;
+    var particulars = document.getElementById('particulars1').value.trim();
+    var rateVal     = document.getElementById('rate1').value;
+    var weightVal   = document.getElementById('weight1').value;
+    var amountVal   = document.getElementById('amount1').value;
+
+    if (!dateVal)     { showToast('Please enter date of vehicle load'); return; }
+    if (!truckVal)    { showToast('Please select or enter a truck number'); return; }
+    if (!particulars) { showToast('Please enter particulars'); return; }
+
+    var rate   = parseFloat(rateVal)   || 0;
+    var weight = parseFloat(weightVal) || 0;
+    var amount;
+
+    if (amountVal !== '') {
+        amount = parseFloat(amountVal);
+        if (isNaN(amount)) { showToast('Invalid amount value'); return; }
+    } else if (rate > 0) {
+        amount = rate * weight;
+    } else {
+        showToast('Enter rate (and weight) or a fixed amount'); return;
+    }
+
+    // Format date for display (avoid timezone shift)
+    var da      = new Date(dateVal + 'T00:00:00');
+    var fmtDate = da.getDate() + '/' + (da.getMonth() + 1) + '/' + da.getFullYear();
+
+    // Push to billEntries array (single source of truth)
+    billEntries.push({
+        date:          fmtDate,
+        truck:         truckVal,
+        truckSelectVal: document.getElementById('truckSelect').value,
+        particulars:   particulars,
+        rate:          rate   ? rate   : '',
+        weight:        weight ? weight : '',
+        amount:        amount
+    });
+
+    // Save for repeat
+    lastEntry = {
+        truck:         truckVal,
+        truckSelectVal: document.getElementById('truckSelect').value,
+        particulars:   particulars,
+        rate:          rateVal,
+        weight:        weightVal
+    };
+
+    entryCount = billEntries.length;
+
+    // Rebuild bill body and refresh entries list
+    rebuildBillBody();
+    renderEntriesList();
+
+    // Lock header after first entry
+    if (entryCount === 1) lockHeaderFields();
+
+    // Show repeat button
+    document.getElementById('repeatBtn').style.display = 'inline-flex';
+
+    // Disable add button if at max
+    if (entryCount >= MAX_ENTRIES) {
+        document.getElementById('addEntryBtn').disabled = true;
+        document.getElementById('addEntryBtn').classList.add('btn-disabled');
+        document.getElementById('entryFullBadge').style.display = 'inline-block';
+    }
+
+    showToast('Entry ' + entryCount + ' added');
+
+    // Clear entry fields (keep load date for convenience)
+    document.getElementById('truckSelect').value  = '';
+    document.getElementById('truckInput').value   = '';
+    document.getElementById('particulars1').value = '';
+    document.getElementById('rate1').value        = '';
+    document.getElementById('weight1').value      = '';
+    document.getElementById('amount1').value      = '';
+    document.getElementById('truckInput').focus();
+}
+
+// ─── Row padding (always show 10 rows when printing/previewing) ───────────────
+function padBillRows() {
+    unpadBillRows();
+    var realCount = document.querySelectorAll('#billBody .data-row').length;
+    var needed    = MAX_ENTRIES - realCount;
+    var tbody     = document.getElementById('billBody');
+    for (var i = 0; i < needed; i++) {
+        var tr = document.createElement('tr');
+        tr.className = 'padding-row';
+        tr.innerHTML = '<td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>';
+        tbody.appendChild(tr);
+    }
+}
+
+function unpadBillRows() {
+    document.querySelectorAll('#billBody .padding-row').forEach(function(r) { r.remove(); });
+}
+
+// Remove padding after print dialog closes
+window.addEventListener('afterprint', unpadBillRows);
+
+// ─── Calculate totals ─────────────────────────────────────────────────────────
+function calculateTotals() {
+    var advance = parseFloat(document.getElementById('advance').value) || 0;
+    var khoti   = parseFloat(document.getElementById('khoti').value)   || 0;
+    var extra   = parseFloat(document.getElementById('extrax').value)  || 0;
+
+    document.getElementById('advancex').textContent = advance || '';
+    document.getElementById('khotix').textContent   = khoti   || '';
+    document.getElementById('extraxx').textContent  = extra   || '';
+
+    // Sum only real data rows (padding rows have no .amount-cell)
+    var total = 0;
+    document.querySelectorAll('#billBody .amount-cell').forEach(function(cell) {
+        total += parseFloat(cell.textContent) || 0;
+    });
+
+    document.getElementById('sum').textContent = total.toFixed(2);
+
+    var balance = total - advance + khoti + extra;
+    document.getElementById('balancex').textContent = balance.toFixed(2);
+
+    NumToWord(Math.round(balance), 'rupeex');
+    liveSync();
+}
+
+// ─── Preview ──────────────────────────────────────────────────────────────────
+function showPreview() {
+    if (entryCount === 0) { showToast('Add at least one entry first'); return; }
+    calculateTotals();
+    padBillRows();
+    document.getElementById('generatebill').style.display = 'block';
+    document.getElementById('generatebill').scrollIntoView({ behavior: 'smooth' });
+}
+
+function closePreview() {
+    unpadBillRows();
+    document.getElementById('generatebill').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── Print ────────────────────────────────────────────────────────────────────
+function printBill() {
+    if (entryCount === 0) { showToast('Add at least one entry first'); return; }
+    calculateTotals();
+    padBillRows();
+    document.getElementById('generatebill').style.display = 'block';
+    setTimeout(function() { window.print(); }, 300);
+}
+
+// ─── Reset ────────────────────────────────────────────────────────────────────
+function resetAll() {
+    if (!confirm('Reset the entire bill? All entries will be cleared.')) return;
+
+    unpadBillRows();
+    unlockHeaderFields();
+
+    // Reset header inputs
+    document.getElementById('tpname').value = '';
+    document.getElementById('bill').value   = generateBillNo();
+    document.getElementById('datee').value  = todayISO;
+
+    // Reset entry inputs
+    ['date2','truckInput','particulars1','rate1','weight1','amount1',
+     'advance','khoti','extrax'].forEach(function(id) {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('truckSelect').value = '';
+
+    // Reset state
+    billEntries = [];
+    entryCount  = 0;
+    lastEntry   = null;
+
+    rebuildBillBody();
+    renderEntriesList();
+
+    document.getElementById('generatebill').style.display = 'none';
+    document.getElementById('repeatBtn').style.display    = 'none';
+    document.getElementById('addEntryBtn').disabled       = false;
+    document.getElementById('addEntryBtn').classList.remove('btn-disabled');
+    document.getElementById('entryFullBadge').style.display = 'none';
+
+    ['tp','bo','sum','balancex','rupeex','advancex','khotix','extraxx']
+        .forEach(function(id) { document.getElementById(id).textContent = ''; });
+
+    liveSync();
+}
+
+// ─── Toast notification ───────────────────────────────────────────────────────
+function showToast(msg, type) {
+    var notif = document.createElement('div');
+    notif.className = 'toasts' +
+        (type === 'error' ? ' toast-error' : '') +
+        (type === 'info'  ? ' toast-info'  : '');
+    notif.textContent = msg;
+    document.getElementById('toastss').appendChild(notif);
+    setTimeout(function() { notif.remove(); }, 4500);
+}
+
+// ─── Number to Words (Indian numbering system) ────────────────────────────────
+function NumToWord(inputNumber, outputControl) {
+    var str  = String(inputNumber);
+    var rev  = str.split('').reverse();
+    var once = ['Zero',' One',' Two',' Three',' Four',' Five',' Six',' Seven',' Eight',' Nine'];
+    var twos = ['Ten',' Eleven',' Twelve',' Thirteen',' Fourteen',' Fifteen',' Sixteen',' Seventeen',' Eighteen',' Nineteen'];
+    var tens = ['',' Ten',' Twenty',' Thirty',' Forty',' Fifty',' Sixty',' Seventy',' Eighty',' Ninety'];
+    var len  = rev.length;
+    var word = [];
+    var j    = 0;
+
+    function aboveTens(i) {
+        if (rev[i] == 0)      return '';
+        else if (rev[i] == 1) return twos[rev[i - 1]];
+        else                  return tens[rev[i]];
+    }
+
+    for (var i = 0; i < len; i++) {
+        switch (i) {
+            case 0: word[j] = (rev[i] == 0 || rev[i+1] == 1) ? '' : once[rev[i]]; break;
+            case 1: word[j] = aboveTens(i); break;
+            case 2:
+                if      (rev[i] == 0)                    word[j] = '';
+                else if (rev[i-1] == 0 || rev[i-2] == 0) word[j] = once[rev[i]] + ' Hundred ';
+                else                                      word[j] = once[rev[i]] + ' Hundred and';
+                break;
+            case 3:
+                word[j] = (rev[i] == 0 || rev[i+1] == 1) ? '' : once[rev[i]];
+                if (rev[i+1] != 0 || rev[i] > 0) word[j] += ' Thousand';
+                break;
+            case 4: word[j] = aboveTens(i); break;
+            case 5:
+                word[j] = (rev[i] == 0 || rev[i+1] == 1) ? '' : once[rev[i]];
+                if (rev[i+1] !== '0' || rev[i] > '0') word[j] += ' Lakh';
+                break;
+            case 6: word[j] = aboveTens(i); break;
+            case 7:
+                word[j] = (rev[i] == 0 || rev[i+1] == 1) ? '' : once[rev[i]];
+                if (rev[i+1] !== '0' || rev[i] > '0') word[j] += ' Crore';
+                break;
+            case 8: word[j] = aboveTens(i); break;
+        }
+        j++;
+    }
+
+    word.reverse();
+    var out = '';
+    for (var k = 0; k < len; k++) out += word[k];
+    document.getElementById(outputControl).innerHTML = out.trim() + ' Only/-';
+}
+</script>
+
 </body>
-
 </html>
