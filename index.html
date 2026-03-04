@@ -49,14 +49,20 @@
                 <label class="form-label">Bill Date</label>
                 <input type="date" class="form-control" id="datee" onchange="liveSync()">
             </div>
+            <div class="col-12">
+                <label class="form-label">Bill Note <small class="text-muted">(optional — shown in bill above PAN NO)</small></label>
+                <input type="text" class="form-control" id="billNoteInput"
+                    placeholder="e.g. Freight note or special instruction"
+                    oninput="updateBillNote()">
+            </div>
         </div>
     </div>
 
     <!-- Card 2: Add Entry -->
-    <div class="form-card">
+    <div class="form-card" id="entryCard">
         <div class="form-card-title">
             <i class="fa fa-truck"></i> Add Entry
-            <span class="entry-full-badge" id="entryFullBadge" style="display:none;">FULL 10/10</span>
+            <span class="entry-full-badge" id="entryFullBadge" style="display:none;">FULL 15/15</span>
         </div>
 
         <div class="row g-3">
@@ -104,6 +110,25 @@
                 <label class="form-label">Amount <small class="text-muted">(blank = Rate×Weight)</small></label>
                 <input type="number" class="form-control" id="amount1" placeholder="Auto" min="0" step="0.01">
             </div>
+            <div class="col-12">
+                <div class="extras-section-label"><i class="fa fa-tags"></i> Extra Details <small class="text-muted">(optional — shown in particulars)</small></div>
+            </div>
+            <div class="col-6 col-sm-3">
+                <label class="form-label">Advance</label>
+                <input type="number" class="form-control" id="advance1" placeholder="0" min="0" step="0.01">
+            </div>
+            <div class="col-6 col-sm-3">
+                <label class="form-label">Khoti</label>
+                <input type="number" class="form-control" id="khoti1" placeholder="0" min="0" step="0.01">
+            </div>
+            <div class="col-6 col-sm-3">
+                <label class="form-label">Orai</label>
+                <input type="number" class="form-control" id="orai1" placeholder="0" min="0" step="0.01">
+            </div>
+            <div class="col-6 col-sm-3">
+                <label class="form-label">Note</label>
+                <input type="text" class="form-control" id="entrynote1" placeholder="Entry note">
+            </div>
         </div>
         <div class="mt-3 entry-btn-row">
             <button class="btn btn-success btn-add-entry" id="addEntryBtn" onclick="addEntry()">
@@ -114,6 +139,10 @@
                 title="Pre-fill form with last entry's vehicle, particulars & rate">
                 <i class="fa fa-clone"></i> Repeat Last
             </button>
+            <button class="btn btn-outline-secondary btn-cancel-edit" id="cancelEditBtn"
+                style="display:none;" onclick="cancelEdit()">
+                <i class="fa fa-times"></i> Cancel
+            </button>
         </div>
     </div>
 
@@ -122,7 +151,7 @@
         <div class="form-card-title">
             <i class="fa fa-list-check"></i>
             <span id="entriesCardTitle">ENTRIES (0)</span>
-            <span class="entries-count-badge" id="entriesCountBadge">0/10</span>
+            <span class="entries-count-badge" id="entriesCountBadge">0/15</span>
         </div>
         <div class="table-responsive">
             <table class="entries-list-table">
@@ -142,21 +171,21 @@
         </div>
     </div>
 
-    <!-- Card 3: Deductions & Extras -->
-    <div class="form-card">
-        <div class="form-card-title"><i class="fa fa-calculator"></i> Deductions &amp; Extras</div>
-        <div class="row g-3">
-            <div class="col-4">
-                <label class="form-label">Advance</label>
-                <input type="number" class="form-control" id="advance" placeholder="0" min="0" step="0.01">
+    <!-- Card 3: Deductions Summary (auto-calculated from per-entry values) -->
+    <div class="form-card" id="deductionsCard" style="display:none;">
+        <div class="form-card-title"><i class="fa fa-calculator"></i> Deductions Summary <small class="text-muted" style="font-size:0.72rem;font-weight:400;text-transform:none;">(totalled from entries)</small></div>
+        <div class="deductions-summary-grid">
+            <div class="ded-item">
+                <div class="ded-label">Advance</div>
+                <div class="ded-value" id="summaryAdvance">—</div>
             </div>
-            <div class="col-4">
-                <label class="form-label">Khoti</label>
-                <input type="number" class="form-control" id="khoti" placeholder="0" min="0" step="0.01">
+            <div class="ded-item">
+                <div class="ded-label">Khoti</div>
+                <div class="ded-value" id="summaryKhoti">—</div>
             </div>
-            <div class="col-4">
-                <label class="form-label">ORAI</label>
-                <input type="number" class="form-control" id="extrax" placeholder="0" min="0" step="0.01">
+            <div class="ded-item">
+                <div class="ded-label">Orai</div>
+                <div class="ded-value" id="summaryOrai">—</div>
             </div>
         </div>
     </div>
@@ -169,8 +198,8 @@
         <button type="button" class="btn btn-danger action-btn" onclick="printBill()">
             <i class="fa fa-print"></i><span class="btn-label"> Print</span>
         </button>
-        <button type="button" class="btn btn-outline-secondary action-btn" onclick="resetAll()">
-            <i class="fa fa-rotate-left"></i><span class="btn-label"> Reset</span>
+        <button type="button" class="btn btn-outline-danger action-btn" onclick="resetAll()">
+            <i class="fa fa-trash"></i><span class="btn-label"> Delete Record</span>
         </button>
     </div>
 
@@ -259,7 +288,10 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td><b style="color:red;">PAN NO : BKKPS8139R</b></td>
+                        <td style="text-align:left;">
+                            <div id="billNoteDisplay" style="display:none; font-size:11px; color:#333; margin-bottom:2px;"></div>
+                            <b style="color:red;">PAN NO : BKKPS8139R</b>
+                        </td>
                         <td></td>
                         <td class="tdbr"><b>TOTAL</b></td>
                         <td class="tdbr"><span id="sum"></span></td>
@@ -297,76 +329,14 @@
     </div><!-- end .bill-page -->
 </div><!-- end #generatebill -->
 
-<!-- ═══════════ EXIT WARNING MODAL ═══════════ -->
-<div id="exitModal" class="exit-modal-overlay" style="display:none;" role="dialog" aria-modal="true">
-    <div class="exit-modal-box">
-        <div class="exit-modal-icon">
-            <i class="fa fa-triangle-exclamation"></i>
-        </div>
-        <h5 class="exit-modal-title">Leave this page?</h5>
-        <p class="exit-modal-msg">
-            You have <b id="exitEntryCount">0</b> unsaved bill
-            entr<span id="exitEntryPlural">ies</span>.<br>
-            If you leave now, all your data will be <b>lost</b>.
-        </p>
-        <div class="exit-modal-btns">
-            <button class="btn btn-success exit-stay-btn" onclick="stayOnPage()">
-                <i class="fa fa-arrow-left"></i> Stay on Page
-            </button>
-            <button class="btn btn-outline-danger exit-leave-btn" onclick="leavePage()">
-                Leave
-            </button>
-        </div>
-    </div>
-</div>
 
 <script>
 // ─── Constants & state ───────────────────────────────────────────────────────
-var MAX_ENTRIES  = 10;
+var MAX_ENTRIES  = 15;
 var entryCount   = 0;
 var lastEntry    = null;
-var billEntries  = [];   // source of truth for all added entries
-
-// ─── Guard: warn before leaving with unsaved data ────────────────────────────
-// 1) Tab close / refresh / external navigation (desktop + Android Chrome)
-function beforeUnloadHandler(e) {
-    if (billEntries.length > 0) {
-        e.preventDefault();
-        e.returnValue = '';   // required for Chrome to show the native dialog
-        return '';
-    }
-}
-window.addEventListener('beforeunload', beforeUnloadHandler);
-
-// 2) Push a history state so the back button can be intercepted on mobile
-history.pushState(null, '', location.href);
-window.addEventListener('popstate', function() {
-    if (billEntries.length > 0) {
-        // Re-push so the page stays in history; show our custom warning
-        history.pushState(null, '', location.href);
-        showExitModal();
-    } else {
-        // No data — allow normal back navigation
-        history.back();
-    }
-});
-
-function showExitModal() {
-    var n = billEntries.length;
-    document.getElementById('exitEntryCount').textContent  = n;
-    document.getElementById('exitEntryPlural').textContent = n === 1 ? 'y' : 'ies';
-    document.getElementById('exitModal').style.display     = 'flex';
-}
-function stayOnPage() {
-    document.getElementById('exitModal').style.display = 'none';
-}
-function leavePage() {
-    // Clear data so beforeUnloadHandler stays silent, then go back
-    billEntries = [];
-    entryCount  = 0;
-    document.getElementById('exitModal').style.display = 'none';
-    history.back();
-}
+var billEntries  = [];
+var editingIndex = -1;
 
 // ─── Date setup ──────────────────────────────────────────────────────────────
 var today    = new Date();
@@ -381,17 +351,15 @@ function formatDateDisplay(iso) {
     var p = iso.split('-');
     return p[2] + '/' + p[1] + '/' + p[0];
 }
-
-// Set initial bill date in preview
 document.getElementById('da').textContent = formatDateDisplay(todayISO);
 
-// ─── Auto-generate bill number (daily sequence via localStorage) ─────────────
+// ─── Auto-generate bill number ────────────────────────────────────────────────
 function generateBillNo() {
-    var d    = new Date();
-    var dd   = String(d.getDate()).padStart(2, '0');
-    var mm   = String(d.getMonth() + 1).padStart(2, '0');
-    var yy   = String(d.getFullYear()).slice(-2);
-    var seq  = 1;
+    var d   = new Date();
+    var dd  = String(d.getDate()).padStart(2, '0');
+    var mm  = String(d.getMonth() + 1).padStart(2, '0');
+    var yy  = String(d.getFullYear()).slice(-2);
+    var seq = 1;
     try {
         var key = 'ak_seq_' + d.getFullYear() + mm + dd;
         seq = parseInt(localStorage.getItem(key) || '0') + 1;
@@ -401,24 +369,73 @@ function generateBillNo() {
     }
     return 'AK/' + dd + mm + yy + '/' + String(seq).padStart(3, '0');
 }
+// Use saved bill number if available (avoids wasting a daily sequence number)
+(function() {
+    var _s = null;
+    try { _s = JSON.parse(localStorage.getItem('ak_bill_data')); } catch(e) {}
+    document.getElementById('bill').value =
+        (_s && _s.billNo) ? _s.billNo : generateBillNo();
+    document.getElementById('bo').textContent = document.getElementById('bill').value;
+})();
 
-document.getElementById('bill').value = generateBillNo();
-document.getElementById('bo').textContent = document.getElementById('bill').value;
-
-// ─── Truck dropdown → text input sync ────────────────────────────────────────
+// ─── Truck sync ───────────────────────────────────────────────────────────────
 function syncTruckInput() {
     var sel = document.getElementById('truckSelect').value;
     if (sel) document.getElementById('truckInput').value = sel;
 }
 
-// ─── Live-sync bill header → preview ─────────────────────────────────────────
+// ─── Live-sync bill header ────────────────────────────────────────────────────
 function liveSync() {
     document.getElementById('tp').textContent = document.getElementById('tpname').value;
     document.getElementById('bo').textContent = document.getElementById('bill').value;
     document.getElementById('da').textContent = formatDateDisplay(document.getElementById('datee').value);
+    saveToStorage();
 }
 
-// ─── Render entries list (form section table) ────────────────────────────────
+// ─── Bill note ────────────────────────────────────────────────────────────────
+function updateBillNote() {
+    var note = document.getElementById('billNoteInput').value.trim();
+    var el   = document.getElementById('billNoteDisplay');
+    if (note) {
+        el.textContent   = note;
+        el.style.display = 'block';
+    } else {
+        el.textContent   = '';
+        el.style.display = 'none';
+    }
+    saveToStorage();
+}
+
+// ─── Build extras display text ────────────────────────────────────────────────
+function buildExtrasText(entry) {
+    var parts = [];
+    if (parseFloat(entry.entryAdvance) > 0) parts.push('Advance = ' + parseFloat(entry.entryAdvance));
+    if (parseFloat(entry.entryKhoti)   > 0) parts.push('Khoti = '   + parseFloat(entry.entryKhoti));
+    if (parseFloat(entry.entryOrai)    > 0) parts.push('Orai = '    + parseFloat(entry.entryOrai));
+    if (entry.entryNote && entry.entryNote.trim()) parts.push(entry.entryNote.trim());
+    return parts.join(' | ');
+}
+
+// ─── Deductions summary (live update) ────────────────────────────────────────
+function updateDeductionsSummary() {
+    var advance = 0, khoti = 0, orai = 0;
+    billEntries.forEach(function(e) {
+        advance += parseFloat(e.entryAdvance) || 0;
+        khoti   += parseFloat(e.entryKhoti)   || 0;
+        orai    += parseFloat(e.entryOrai)    || 0;
+    });
+    var card = document.getElementById('deductionsCard');
+    if (billEntries.length === 0 || (!advance && !khoti && !orai)) {
+        card.style.display = 'none';
+        return;
+    }
+    card.style.display = 'block';
+    document.getElementById('summaryAdvance').textContent = advance ? advance.toFixed(2) : '—';
+    document.getElementById('summaryKhoti').textContent   = khoti   ? khoti.toFixed(2)   : '—';
+    document.getElementById('summaryOrai').textContent    = orai    ? orai.toFixed(2)    : '—';
+}
+
+// ─── Render entries list ──────────────────────────────────────────────────────
 function renderEntriesList() {
     var card  = document.getElementById('entriesCard');
     var tbody = document.getElementById('entriesListBody');
@@ -427,6 +444,7 @@ function renderEntriesList() {
 
     if (billEntries.length === 0) {
         card.style.display = 'none';
+        updateDeductionsSummary();
         return;
     }
     card.style.display = 'block';
@@ -438,29 +456,42 @@ function renderEntriesList() {
     tbody.innerHTML = '';
     billEntries.forEach(function(entry, idx) {
         var tr = document.createElement('tr');
+        tr.className   = idx === editingIndex ? 'editing-row' : '';
+        tr.style.cursor = 'pointer';
+        tr.title       = 'Tap to edit this entry';
+        tr.setAttribute('onclick', 'editEntry(' + idx + ')');
+
+        var extrasText = buildExtrasText(entry);
+        var partsHtml  = entry.particulars +
+            (extrasText ? '<br><span class="entry-extras-text">' + extrasText + '</span>' : '');
+
         tr.innerHTML =
             '<td>' + entry.date + '</td>' +
             '<td>' + entry.truck + '</td>' +
-            '<td class="el-particulars">' + entry.particulars + '</td>' +
+            '<td class="el-particulars">' + partsHtml + '</td>' +
             '<td>' + (entry.rate   || '-') + '</td>' +
             '<td>' + (entry.weight || '-') + '</td>' +
             '<td class="el-amount">&#8377;' + entry.amount.toFixed(2) + '</td>' +
-            '<td><button class="btn-delete-entry" onclick="deleteEntry(' + idx + ')" title="Remove this entry">&times;</button></td>';
+            '<td><button class="btn-delete-entry" onclick="event.stopPropagation();deleteEntry(' + idx + ')" title="Remove">&times;</button></td>';
         tbody.appendChild(tr);
     });
+    updateDeductionsSummary();
 }
 
-// ─── Rebuild bill body from billEntries array ─────────────────────────────────
+// ─── Rebuild bill body ────────────────────────────────────────────────────────
 function rebuildBillBody() {
     var tbody = document.getElementById('billBody');
     tbody.innerHTML = '';
     billEntries.forEach(function(entry) {
         var tr = document.createElement('tr');
         tr.className = 'data-row';
+        var extrasText = buildExtrasText(entry);
+        var partsHtml  = entry.particulars +
+            (extrasText ? '<br><small style="font-size:10px;color:#444;">' + extrasText + '</small>' : '');
         tr.innerHTML =
             '<td>' + entry.date + '</td>' +
             '<td>' + entry.truck + '</td>' +
-            '<td>' + entry.particulars + '</td>' +
+            '<td style="text-align:left;">' + partsHtml + '</td>' +
             '<td>' + (entry.rate   || '-') + '</td>' +
             '<td>' + (entry.weight || '-') + '</td>' +
             '<td class="amount-cell">' + entry.amount.toFixed(2) + '</td>';
@@ -468,26 +499,89 @@ function rebuildBillBody() {
     });
 }
 
-// ─── Delete an entry by index ─────────────────────────────────────────────────
+// ─── Edit entry ───────────────────────────────────────────────────────────────
+function editEntry(idx) {
+    var entry = billEntries[idx];
+    editingIndex = idx;
+
+    if (entry.dateISO) document.getElementById('date2').value = entry.dateISO;
+    document.getElementById('truckInput').value   = entry.truck;
+    document.getElementById('truckSelect').value  = entry.truckSelectVal || '';
+    document.getElementById('particulars1').value = entry.particulars;
+    document.getElementById('rate1').value        = entry.rate;
+    document.getElementById('weight1').value      = entry.weight;
+    document.getElementById('amount1').value      = entry.amount;
+    document.getElementById('advance1').value     = entry.entryAdvance || '';
+    document.getElementById('khoti1').value       = entry.entryKhoti   || '';
+    document.getElementById('orai1').value        = entry.entryOrai    || '';
+    document.getElementById('entrynote1').value   = entry.entryNote    || '';
+
+    var btn = document.getElementById('addEntryBtn');
+    btn.innerHTML = '<i class="fa fa-pen"></i> Update Entry';
+    btn.className = btn.className.replace('btn-success', 'btn-warning');
+    btn.disabled  = false;
+    btn.classList.remove('btn-disabled');
+
+    document.getElementById('cancelEditBtn').style.display = 'inline-flex';
+    renderEntriesList();
+    document.getElementById('entryCard').scrollIntoView({ behavior: 'smooth' });
+    showToast('Editing entry ' + (idx + 1) + ' — update and tap "Update Entry"', 'info');
+}
+
+// ─── Cancel edit ─────────────────────────────────────────────────────────────
+function cancelEdit() {
+    editingIndex = -1;
+    clearEntryForm();
+    resetAddBtn();
+    renderEntriesList();
+}
+
+function clearEntryForm() {
+    ['date2','truckInput','particulars1','rate1','weight1','amount1',
+     'advance1','khoti1','orai1','entrynote1'].forEach(function(id) {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('truckSelect').value = '';
+}
+
+function resetAddBtn() {
+    var btn = document.getElementById('addEntryBtn');
+    btn.innerHTML = '<i class="fa fa-plus-circle"></i> Add Entry';
+    btn.className = btn.className.replace('btn-warning', 'btn-success');
+    btn.disabled  = (entryCount >= MAX_ENTRIES);
+    if (entryCount < MAX_ENTRIES) btn.classList.remove('btn-disabled');
+    document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+// ─── Delete entry ─────────────────────────────────────────────────────────────
 function deleteEntry(idx) {
+    if (idx === editingIndex) {
+        editingIndex = -1;
+        clearEntryForm();
+        resetAddBtn();
+    } else if (idx < editingIndex) {
+        editingIndex--;
+    }
     billEntries.splice(idx, 1);
     entryCount = billEntries.length;
 
     rebuildBillBody();
     renderEntriesList();
 
-    // Unlock header if all entries removed
     if (entryCount === 0) {
         unlockHeaderFields();
         document.getElementById('repeatBtn').style.display = 'none';
         lastEntry = null;
     }
-
-    // Re-enable add button if back under limit
-    var addBtn = document.getElementById('addEntryBtn');
-    addBtn.disabled = false;
-    addBtn.classList.remove('btn-disabled');
-    document.getElementById('entryFullBadge').style.display = 'none';
+    if (entryCount < MAX_ENTRIES) {
+        var addBtn = document.getElementById('addEntryBtn');
+        if (editingIndex < 0) {
+            addBtn.disabled = false;
+            addBtn.classList.remove('btn-disabled');
+        }
+        document.getElementById('entryFullBadge').style.display = 'none';
+    }
+    saveToStorage();
 }
 
 // ─── Repeat last entry ────────────────────────────────────────────────────────
@@ -498,20 +592,18 @@ function repeatLastEntry() {
     document.getElementById('particulars1').value = lastEntry.particulars;
     document.getElementById('rate1').value        = lastEntry.rate;
     document.getElementById('weight1').value      = lastEntry.weight;
-    // amount left blank so Rate×Weight recalculates
     document.getElementById('amount1').value      = '';
     document.getElementById('date2').focus();
     showToast('Last entry filled — change the date and tap Add Entry', 'info');
 }
 
-// ─── Lock / unlock bill header fields ────────────────────────────────────────
+// ─── Lock / unlock header ─────────────────────────────────────────────────────
 function lockHeaderFields() {
     document.getElementById('tpname').disabled = true;
     document.getElementById('bill').disabled   = true;
     document.getElementById('datee').disabled  = true;
     document.getElementById('lockIndicator').style.display = 'inline-flex';
 }
-
 function unlockHeaderFields() {
     document.getElementById('tpname').disabled = false;
     document.getElementById('bill').disabled   = false;
@@ -519,10 +611,11 @@ function unlockHeaderFields() {
     document.getElementById('lockIndicator').style.display = 'none';
 }
 
-// ─── Add entry ────────────────────────────────────────────────────────────────
+// ─── Add / Update entry ───────────────────────────────────────────────────────
 function addEntry() {
-    if (entryCount >= MAX_ENTRIES) {
-        showToast('Maximum 10 entries per bill. Use Reset to start a new bill.', 'error');
+    var isUpdate = (editingIndex >= 0);
+    if (!isUpdate && entryCount >= MAX_ENTRIES) {
+        showToast('Maximum ' + MAX_ENTRIES + ' entries per bill. Use Reset to start a new bill.', 'error');
         return;
     }
 
@@ -533,80 +626,90 @@ function addEntry() {
     var rateVal     = document.getElementById('rate1').value;
     var weightVal   = document.getElementById('weight1').value;
     var amountVal   = document.getElementById('amount1').value;
+    var noteVal     = document.getElementById('entrynote1').value.trim();
 
-    if (!dateVal)     { showToast('Please enter date of vehicle load'); return; }
-    if (!truckVal)    { showToast('Please select or enter a truck number'); return; }
-    if (!particulars) { showToast('Please enter particulars'); return; }
+    // At least one field must have content
+    var hasContent = dateVal || truckVal || particulars || rateVal || weightVal ||
+                     amountVal || noteVal ||
+                     document.getElementById('advance1').value ||
+                     document.getElementById('khoti1').value ||
+                     document.getElementById('orai1').value;
+    if (!hasContent) { showToast('Please fill at least one field'); return; }
 
     var rate   = parseFloat(rateVal)   || 0;
     var weight = parseFloat(weightVal) || 0;
     var amount;
 
     if (amountVal !== '') {
-        amount = parseFloat(amountVal);
-        if (isNaN(amount)) { showToast('Invalid amount value'); return; }
+        amount = parseFloat(amountVal) || 0;
     } else if (rate > 0) {
         amount = rate * weight;
     } else {
-        showToast('Enter rate (and weight) or a fixed amount'); return;
+        amount = 0;
     }
 
-    // Format date for display (avoid timezone shift)
-    var da      = new Date(dateVal + 'T00:00:00');
-    var fmtDate = da.getDate() + '/' + (da.getMonth() + 1) + '/' + da.getFullYear();
+    var fmtDate = '';
+    if (dateVal) {
+        var da  = new Date(dateVal + 'T00:00:00');
+        fmtDate = da.getDate() + '/' + (da.getMonth() + 1) + '/' + da.getFullYear();
+    }
 
-    // Push to billEntries array (single source of truth)
-    billEntries.push({
-        date:          fmtDate,
-        truck:         truckVal,
+    var entryObj = {
+        date:           fmtDate,
+        dateISO:        dateVal,
+        truck:          truckVal,
         truckSelectVal: document.getElementById('truckSelect').value,
-        particulars:   particulars,
-        rate:          rate   ? rate   : '',
-        weight:        weight ? weight : '',
-        amount:        amount
-    });
-
-    // Save for repeat
-    lastEntry = {
-        truck:         truckVal,
-        truckSelectVal: document.getElementById('truckSelect').value,
-        particulars:   particulars,
-        rate:          rateVal,
-        weight:        weightVal
+        particulars:    particulars,
+        rate:           rate   ? rate   : '',
+        weight:         weight ? weight : '',
+        amount:         amount,
+        entryAdvance:   document.getElementById('advance1').value,
+        entryKhoti:     document.getElementById('khoti1').value,
+        entryOrai:      document.getElementById('orai1').value,
+        entryNote:      document.getElementById('entrynote1').value.trim()
     };
 
-    entryCount = billEntries.length;
+    if (isUpdate) {
+        var prevIdx = editingIndex;
+        billEntries[editingIndex] = entryObj;
+        editingIndex = -1;
+        resetAddBtn();
+        rebuildBillBody();
+        renderEntriesList();
+        clearEntryForm();
+        saveToStorage();
+        showToast('Entry ' + (prevIdx + 1) + ' updated');
+    } else {
+        billEntries.push(entryObj);
+        entryCount = billEntries.length;
 
-    // Rebuild bill body and refresh entries list
-    rebuildBillBody();
-    renderEntriesList();
+        lastEntry = {
+            truck:          truckVal,
+            truckSelectVal: document.getElementById('truckSelect').value,
+            particulars:    particulars,
+            rate:           rateVal,
+            weight:         weightVal
+        };
 
-    // Lock header after first entry
-    if (entryCount === 1) lockHeaderFields();
+        rebuildBillBody();
+        renderEntriesList();
 
-    // Show repeat button
-    document.getElementById('repeatBtn').style.display = 'inline-flex';
+        if (entryCount === 1) lockHeaderFields();
+        document.getElementById('repeatBtn').style.display = 'inline-flex';
 
-    // Disable add button if at max
-    if (entryCount >= MAX_ENTRIES) {
-        document.getElementById('addEntryBtn').disabled = true;
-        document.getElementById('addEntryBtn').classList.add('btn-disabled');
-        document.getElementById('entryFullBadge').style.display = 'inline-block';
+        if (entryCount >= MAX_ENTRIES) {
+            document.getElementById('addEntryBtn').disabled = true;
+            document.getElementById('addEntryBtn').classList.add('btn-disabled');
+            document.getElementById('entryFullBadge').style.display = 'inline-block';
+        }
+
+        saveToStorage();
+        showToast('Entry ' + entryCount + ' added');
+        clearEntryForm();
     }
-
-    showToast('Entry ' + entryCount + ' added');
-
-    // Clear entry fields (keep load date for convenience)
-    document.getElementById('truckSelect').value  = '';
-    document.getElementById('truckInput').value   = '';
-    document.getElementById('particulars1').value = '';
-    document.getElementById('rate1').value        = '';
-    document.getElementById('weight1').value      = '';
-    document.getElementById('amount1').value      = '';
-    document.getElementById('truckInput').focus();
 }
 
-// ─── Row padding (always show 10 rows when printing/previewing) ───────────────
+// ─── Row padding ──────────────────────────────────────────────────────────────
 function padBillRows() {
     unpadBillRows();
     var realCount = document.querySelectorAll('#billBody .data-row').length;
@@ -619,40 +722,37 @@ function padBillRows() {
         tbody.appendChild(tr);
     }
 }
-
 function unpadBillRows() {
     document.querySelectorAll('#billBody .padding-row').forEach(function(r) { r.remove(); });
 }
-
-// Remove padding after print dialog closes
 window.addEventListener('afterprint', unpadBillRows);
 
 // ─── Calculate totals ─────────────────────────────────────────────────────────
 function calculateTotals() {
-    var advance = parseFloat(document.getElementById('advance').value) || 0;
-    var khoti   = parseFloat(document.getElementById('khoti').value)   || 0;
-    var extra   = parseFloat(document.getElementById('extrax').value)  || 0;
+    var advance = 0, khoti = 0, orai = 0;
+    billEntries.forEach(function(e) {
+        advance += parseFloat(e.entryAdvance) || 0;
+        khoti   += parseFloat(e.entryKhoti)   || 0;
+        orai    += parseFloat(e.entryOrai)    || 0;
+    });
 
-    document.getElementById('advancex').textContent = advance || '';
-    document.getElementById('khotix').textContent   = khoti   || '';
-    document.getElementById('extraxx').textContent  = extra   || '';
+    document.getElementById('advancex').textContent = advance ? advance.toFixed(2) : '';
+    document.getElementById('khotix').textContent   = khoti   ? khoti.toFixed(2)   : '';
+    document.getElementById('extraxx').textContent  = orai    ? orai.toFixed(2)    : '';
 
-    // Sum only real data rows (padding rows have no .amount-cell)
     var total = 0;
     document.querySelectorAll('#billBody .amount-cell').forEach(function(cell) {
         total += parseFloat(cell.textContent) || 0;
     });
-
     document.getElementById('sum').textContent = total.toFixed(2);
 
-    var balance = total - advance + khoti + extra;
+    var balance = total - advance + khoti + orai;
     document.getElementById('balancex').textContent = balance.toFixed(2);
-
     NumToWord(Math.round(balance), 'rupeex');
     liveSync();
 }
 
-// ─── Preview ──────────────────────────────────────────────────────────────────
+// ─── Preview / Print / Reset ──────────────────────────────────────────────────
 function showPreview() {
     if (entryCount === 0) { showToast('Add at least one entry first'); return; }
     calculateTotals();
@@ -660,14 +760,11 @@ function showPreview() {
     document.getElementById('generatebill').style.display = 'block';
     document.getElementById('generatebill').scrollIntoView({ behavior: 'smooth' });
 }
-
 function closePreview() {
     unpadBillRows();
     document.getElementById('generatebill').style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-// ─── Print ────────────────────────────────────────────────────────────────────
 function printBill() {
     if (entryCount === 0) { showToast('Add at least one entry first'); return; }
     calculateTotals();
@@ -676,46 +773,47 @@ function printBill() {
     setTimeout(function() { window.print(); }, 300);
 }
 
-// ─── Reset ────────────────────────────────────────────────────────────────────
 function resetAll() {
-    if (!confirm('Reset the entire bill? All entries will be cleared.')) return;
+    if (!confirm('Delete this bill record? All entries will be permanently cleared.')) return;
+
+    clearStorage();   // wipe saved data immediately
 
     unpadBillRows();
     unlockHeaderFields();
 
-    // Reset header inputs
-    document.getElementById('tpname').value = '';
-    document.getElementById('bill').value   = generateBillNo();
-    document.getElementById('datee').value  = todayISO;
+    document.getElementById('tpname').value        = '';
+    document.getElementById('bill').value          = generateBillNo();
+    document.getElementById('datee').value         = todayISO;
+    document.getElementById('billNoteInput').value = '';
+    document.getElementById('billNoteDisplay').style.display = 'none';
+    document.getElementById('billNoteDisplay').textContent   = '';
 
-    // Reset entry inputs
-    ['date2','truckInput','particulars1','rate1','weight1','amount1',
-     'advance','khoti','extrax'].forEach(function(id) {
-        document.getElementById(id).value = '';
-    });
-    document.getElementById('truckSelect').value = '';
+    clearEntryForm();
 
-    // Reset state
-    billEntries = [];
-    entryCount  = 0;
-    lastEntry   = null;
+    billEntries  = [];
+    entryCount   = 0;
+    lastEntry    = null;
+    editingIndex = -1;
 
     rebuildBillBody();
     renderEntriesList();
 
-    document.getElementById('generatebill').style.display = 'none';
-    document.getElementById('repeatBtn').style.display    = 'none';
-    document.getElementById('addEntryBtn').disabled       = false;
-    document.getElementById('addEntryBtn').classList.remove('btn-disabled');
+    document.getElementById('generatebill').style.display  = 'none';
+    document.getElementById('repeatBtn').style.display     = 'none';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+    resetAddBtn();
     document.getElementById('entryFullBadge').style.display = 'none';
 
     ['tp','bo','sum','balancex','rupeex','advancex','khotix','extraxx']
         .forEach(function(id) { document.getElementById(id).textContent = ''; });
 
-    liveSync();
+    document.getElementById('bo').textContent = document.getElementById('bill').value;
+    document.getElementById('da').textContent = formatDateDisplay(todayISO);
+
+    showToast('Bill record deleted', 'info');
 }
 
-// ─── Toast notification ───────────────────────────────────────────────────────
+// ─── Toast ────────────────────────────────────────────────────────────────────
 function showToast(msg, type) {
     var notif = document.createElement('div');
     notif.className = 'toasts' +
@@ -724,6 +822,76 @@ function showToast(msg, type) {
     notif.textContent = msg;
     document.getElementById('toastss').appendChild(notif);
     setTimeout(function() { notif.remove(); }, 4500);
+}
+
+// ─── LocalStorage: save / restore / clear ────────────────────────────────────
+var _isSaving = false;   // prevent re-entrant saves during loadFromStorage
+
+function saveToStorage() {
+    if (_isSaving) return;
+    try {
+        localStorage.setItem('ak_bill_data', JSON.stringify({
+            entries:  billEntries,
+            tpname:   document.getElementById('tpname').value,
+            billNo:   document.getElementById('bill').value,
+            billDate: document.getElementById('datee').value,
+            billNote: document.getElementById('billNoteInput').value
+        }));
+    } catch(e) {}
+}
+
+function clearStorage() {
+    try { localStorage.removeItem('ak_bill_data'); } catch(e) {}
+}
+
+function loadFromStorage() {
+    try {
+        var raw = localStorage.getItem('ak_bill_data');
+        if (!raw) return;
+        var data = JSON.parse(raw);
+        if (!data) return;
+
+        _isSaving = true;   // suppress saves while we restore
+
+        // Restore header fields
+        if (data.tpname)   document.getElementById('tpname').value = data.tpname;
+        if (data.billNo)   document.getElementById('bill').value   = data.billNo;
+        if (data.billDate) document.getElementById('datee').value  = data.billDate;
+        if (data.billNote) {
+            document.getElementById('billNoteInput').value = data.billNote;
+            updateBillNote();
+        }
+
+        // Restore entries
+        if (data.entries && Array.isArray(data.entries) && data.entries.length > 0) {
+            billEntries = data.entries;
+            entryCount  = billEntries.length;
+            lastEntry   = billEntries[billEntries.length - 1];
+
+            rebuildBillBody();
+            renderEntriesList();
+            lockHeaderFields();
+
+            document.getElementById('repeatBtn').style.display = 'inline-flex';
+
+            if (entryCount >= MAX_ENTRIES) {
+                document.getElementById('addEntryBtn').disabled = true;
+                document.getElementById('addEntryBtn').classList.add('btn-disabled');
+                document.getElementById('entryFullBadge').style.display = 'inline-block';
+            }
+        }
+
+        // Sync preview header
+        document.getElementById('tp').textContent = document.getElementById('tpname').value;
+        document.getElementById('bo').textContent = document.getElementById('bill').value;
+        document.getElementById('da').textContent = formatDateDisplay(document.getElementById('datee').value);
+
+        _isSaving = false;
+
+        if (entryCount > 0) {
+            showToast(entryCount + ' entr' + (entryCount === 1 ? 'y' : 'ies') + ' restored from last session', 'info');
+        }
+    } catch(e) { _isSaving = false; }
 }
 
 // ─── Number to Words (Indian numbering system) ────────────────────────────────
@@ -748,9 +916,9 @@ function NumToWord(inputNumber, outputControl) {
             case 0: word[j] = (rev[i] == 0 || rev[i+1] == 1) ? '' : once[rev[i]]; break;
             case 1: word[j] = aboveTens(i); break;
             case 2:
-                if      (rev[i] == 0)                    word[j] = '';
-                else if (rev[i-1] == 0 || rev[i-2] == 0) word[j] = once[rev[i]] + ' Hundred ';
-                else                                      word[j] = once[rev[i]] + ' Hundred and';
+                if      (rev[i] == 0)                     word[j] = '';
+                else if (rev[i-1] == 0 || rev[i-2] == 0)  word[j] = once[rev[i]] + ' Hundred ';
+                else                                       word[j] = once[rev[i]] + ' Hundred and';
                 break;
             case 3:
                 word[j] = (rev[i] == 0 || rev[i+1] == 1) ? '' : once[rev[i]];
@@ -776,6 +944,9 @@ function NumToWord(inputNumber, outputControl) {
     for (var k = 0; k < len; k++) out += word[k];
     document.getElementById(outputControl).innerHTML = out.trim() + ' Only/-';
 }
+
+// ─── Restore last session on page load ───────────────────────────────────────
+loadFromStorage();
 </script>
 
 </body>
