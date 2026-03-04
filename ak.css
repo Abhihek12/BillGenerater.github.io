@@ -227,10 +227,18 @@ input:disabled, select:disabled {
 .el-particulars {
     text-align: left !important;
     padding-left: 0.6rem !important;
-    max-width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-width: 180px;
+}
+
+/* extras text shown below particulars in entries list */
+.entry-extras-text {
+    display: block;
+    font-size: 0.73rem;
+    color: #888;
+    font-style: italic;
+    line-height: 1.3;
+    margin-top: 2px;
+    white-space: normal;
 }
 .el-amount {
     font-weight: 700;
@@ -260,6 +268,61 @@ input:disabled, select:disabled {
 .btn-delete-entry:hover {
     background: #dc3545;
     color: #fff;
+}
+
+/* ── Editing row highlight ───────────────────────────────────── */
+.entries-list-table tbody .editing-row {
+    background: #fff3cd !important;
+    outline: 2px solid #fd7e14;
+    outline-offset: -2px;
+}
+
+/* ── Cancel edit button ──────────────────────────────────────── */
+.btn-cancel-edit {
+    flex: 0 1 auto;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.65rem 1rem;
+    white-space: nowrap;
+}
+
+/* ── Extra fields section label ──────────────────────────────── */
+.extras-section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-top: 0.4rem;
+    padding-bottom: 0.1rem;
+    border-top: 1px dashed #e0e0e0;
+    margin-top: 0.2rem;
+}
+
+/* ── Deductions summary card ─────────────────────────────────── */
+.deductions-summary-grid {
+    display: flex;
+    gap: 0.5rem;
+}
+.ded-item {
+    flex: 1;
+    text-align: center;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.5rem 0.25rem;
+}
+.ded-label {
+    font-size: 0.72rem;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+}
+.ded-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #d9580a;
 }
 
 /* ── Action Bar ──────────────────────────────────────────────── */
