@@ -482,7 +482,13 @@ function renderEntriesList() {
 function rebuildBillBody() {
     var tbody = document.getElementById('billBody');
     tbody.innerHTML = '';
-    billEntries.forEach(function(entry) {
+    // Sort a copy by date ascending (earliest date at top) for bill display
+    var sorted = billEntries.slice().sort(function(a, b) {
+        var da = a.dateISO || '';
+        var db = b.dateISO || '';
+        return da < db ? -1 : da > db ? 1 : 0;
+    });
+    sorted.forEach(function(entry) {
         var tr = document.createElement('tr');
         tr.className = 'data-row';
         var extrasText = buildExtrasText(entry);
