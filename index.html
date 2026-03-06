@@ -27,6 +27,9 @@
             <i class="fa fa-file-invoice"></i> Bill Information
             <span class="lock-indicator" id="lockIndicator" style="display:none;">
                 <i class="fa fa-lock"></i> Locked
+                <button class="btn-unlock" onclick="toggleHeaderLock()" title="Click to unlock and edit">
+                    <i class="fa fa-unlock"></i> Unlock
+                </button>
             </span>
         </div>
         <div class="row g-3">
@@ -604,17 +607,45 @@ function repeatLastEntry() {
 }
 
 // ─── Lock / unlock header ─────────────────────────────────────────────────────
+var _headerLocked = false;
+
 function lockHeaderFields() {
+    _headerLocked = true;
     document.getElementById('tpname').disabled = true;
     document.getElementById('bill').disabled   = true;
     document.getElementById('datee').disabled  = true;
     document.getElementById('lockIndicator').style.display = 'inline-flex';
+    var btn = document.querySelector('.btn-unlock');
+    if (btn) { btn.innerHTML = '<i class="fa fa-unlock"></i> Unlock'; }
 }
 function unlockHeaderFields() {
+    _headerLocked = false;
     document.getElementById('tpname').disabled = false;
     document.getElementById('bill').disabled   = false;
     document.getElementById('datee').disabled  = false;
     document.getElementById('lockIndicator').style.display = 'none';
+}
+function toggleHeaderLock() {
+    if (_headerLocked) {
+        // Unlock so user can edit
+        _headerLocked = false;
+        document.getElementById('tpname').disabled = false;
+        document.getElementById('bill').disabled   = false;
+        document.getElementById('datee').disabled  = false;
+        var btn = document.querySelector('.btn-unlock');
+        if (btn) { btn.innerHTML = '<i class="fa fa-lock"></i> Lock'; }
+        showToast('Header unlocked — edit Transporter, Bill No or Date, then lock again', 'info');
+    } else {
+        // Re-lock
+        _headerLocked = true;
+        document.getElementById('tpname').disabled = true;
+        document.getElementById('bill').disabled   = true;
+        document.getElementById('datee').disabled  = true;
+        var btn = document.querySelector('.btn-unlock');
+        if (btn) { btn.innerHTML = '<i class="fa fa-unlock"></i> Unlock'; }
+        liveSync();
+        showToast('Header locked', 'info');
+    }
 }
 
 // ─── Add / Update entry ───────────────────────────────────────────────────────
